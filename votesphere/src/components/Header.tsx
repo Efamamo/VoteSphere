@@ -1,8 +1,11 @@
 import { Link, NavLink } from 'react-router-dom';
 import logo from '../assets/logo (1).png';
+import setting from '../assets/profile (1).png';
 
 interface HeaderProp {
   hideLogin?: boolean;
+  inMember?: boolean;
+  loggedIn?: boolean;
 }
 export default function Header(prop: HeaderProp) {
   return (
@@ -16,22 +19,50 @@ export default function Header(prop: HeaderProp) {
         </div>
       </Link>
 
-      <div className="flex items-center gap-12">
-        <NavLink className="font-medium" to="/">
-          HOME
-        </NavLink>
-        <NavLink className="font-medium" to="/about">
-          ABOUT
-        </NavLink>
-        {!prop.hideLogin && (
-          <Link
-            className="font-medium bg-ctaBlue text-white px-8 py-1 rounded-lg"
-            to="/login"
-          >
-            LOGIN
-          </Link>
-        )}
-      </div>
+      {!prop.loggedIn && (
+        <div className="flex items-center gap-12">
+          <NavLink className="font-medium" to="/">
+            HOME
+          </NavLink>
+          <NavLink className="font-medium" to="/about">
+            ABOUT
+          </NavLink>
+          {!prop.hideLogin && (
+            <Link
+              className="font-medium bg-ctaBlue text-white px-8 py-1 rounded-lg"
+              to="/login"
+            >
+              LOGIN
+            </Link>
+          )}
+        </div>
+      )}
+      {prop.loggedIn && !prop.inMember && (
+        <div className="flex items-center gap-12">
+          <NavLink className="font-medium" to="/">
+            DASHBOARD
+          </NavLink>
+          <NavLink className="font-medium" to="/about">
+            ABOUT
+          </NavLink>
+          <NavLink className="font-medium" to="/about">
+            <img className="w-10" src={setting} alt="" />
+          </NavLink>
+        </div>
+      )}
+      {prop.loggedIn && prop.inMember && (
+        <div className="flex items-center gap-12">
+          <NavLink className="font-medium" to="/">
+            DASHBOARD
+          </NavLink>
+          <NavLink className="font-medium" to="/about">
+            ABOUT
+          </NavLink>
+          <NavLink className="font-medium" to="/about">
+            LOGOUT
+          </NavLink>
+        </div>
+      )}
     </nav>
   );
 }
