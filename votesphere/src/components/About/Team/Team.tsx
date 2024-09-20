@@ -6,8 +6,8 @@ export default function Team() {
     <div className="mt-28 mb-20">
       <h2 className="text-3xl font-bold text-center">Our Team</h2>
       <div className="flex justify-center mt-8 gap-10">
-        <Card image={efa} name="Ephrem Mamo" />
-        <Card image={beka} name="Beka Birhanu" />
+        <Card image={efa} name="Ephrem Mamo" title="Frontend Developer" />
+        <Card image={beka} name="Beka Birhanu" title="Backend Developer" />
       </div>
     </div>
   );
