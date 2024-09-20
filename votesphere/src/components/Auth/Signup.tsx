@@ -1,6 +1,7 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Signup() {
+  const navigate = useNavigate();
   return (
     <div className="mt-40">
       <h2 className="text-center text-5xl font-bold">SignUp</h2>
@@ -22,7 +23,12 @@ export default function Signup() {
             placeholder="Password"
           />
 
-          <button className="font-medium bg-ctaBlue text-white w-full py-2 rounded-lg mt-4">
+          <button
+            onClick={() => {
+              navigate('/dashboard');
+            }}
+            className="font-medium bg-ctaBlue text-white w-full py-2 rounded-lg mt-4"
+          >
             Signup
           </button>
           <p className="text-center mt-4">

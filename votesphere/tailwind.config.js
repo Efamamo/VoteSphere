@@ -13,6 +13,7 @@ export default {
         ctaBlue: '#2684F2',
         footerBlue: '#0A2540',
         inputBORDER: '#D9D9D9',
+        sidebar: '#f4f4f4',
       },
     },
   },

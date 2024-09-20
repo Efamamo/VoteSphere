@@ -7,12 +7,12 @@ export default function Contact() {
         <form action="">
           <h2 className="text-xl font-bold mb-4">Contact Us</h2>
           <input
-            className="border w-full rounded-md border-inputBORDER px-2 py-1 my-2 outline-none"
+            className="border w-full rounded-md border-inputBORDER px-2 py-2 my-2 outline-none"
             type="text"
             placeholder="Name"
           />
           <input
-            className="border w-full rounded-md border-inputBORDER px-2 py-1 my-2 outline-none"
+            className="border w-full rounded-md border-inputBORDER px-2 py-2 my-2 outline-none"
             type="email"
             placeholder="Email"
           />

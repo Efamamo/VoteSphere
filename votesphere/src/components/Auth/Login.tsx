@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 export default function Login() {
+  const navigate = useNavigate();
   return (
     <div className="mt-40">
       <h2 className="text-center text-5xl font-bold">Login</h2>
@@ -18,7 +19,12 @@ export default function Login() {
             placeholder="Password"
           />
 
-          <button className="font-medium bg-ctaBlue text-white w-full py-2 rounded-lg mt-4">
+          <button
+            onClick={() => {
+              navigate('/dashboard');
+            }}
+            className="font-medium bg-ctaBlue text-white w-full py-2 rounded-lg mt-4"
+          >
             Login
           </button>
           <p className="text-center mt-4">

@@ -7,6 +7,7 @@ import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
 import Poll from './components/Poll';
 import Members from './components/Members/Members';
+import Dashboard from './components/Dashboard/Dashboard';
 
 const routes = [
   {
@@ -35,7 +36,7 @@ const routes = [
       <>
         <Header hideLogin={true} />
         <Login />
-        <div className="absolute bottom-0 w-full">
+        <div className="fixed bottom-0 w-full">
           <Footer />
         </div>
       </>
@@ -47,7 +48,19 @@ const routes = [
       <>
         <Header hideLogin={true} />
         <Signup />
-        <div className="absolute bottom-0 w-full">
+        <div className="fixed bottom-0 w-full">
+          <Footer />
+        </div>
+      </>
+    ),
+  },
+  {
+    path: '/dashboard',
+    element: (
+      <>
+        <Header hideLogin={true} loggedIn={true} />
+        <Dashboard />
+        <div className="fixed bottom-0 w-full">
           <Footer />
         </div>
       </>
@@ -59,7 +72,7 @@ const routes = [
       <>
         <Header hideLogin={true} loggedIn={true} />
         <Poll />
-        <div className="absolute bottom-0 w-full">
+        <div className="fixed bottom-0 w-full">
           <Footer />
         </div>
       </>
