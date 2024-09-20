@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import Landing from './components/Landing/Landing';
-import About from './components/About';
+import About from './components/About/About';
 import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
 import Poll from './components/Poll';
@@ -24,9 +24,7 @@ const routes = [
       <>
         <Header />
         <About />
-        <div className="absolute bottom-0 w-full">
-          <Footer />
-        </div>
+        <Footer />
       </>
     ),
   },
