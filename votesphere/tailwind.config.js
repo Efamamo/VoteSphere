@@ -4,7 +4,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        monteserrat: ['"Montserrat", sans-serif;'],
+        lobster: ['"Lobster Two", sans-serif'],
+        pasfico: ['"Pacifico", cursive'],
+        montserrat: ['"Montserrat Alternates", sans-serif;'],
       },
       colors: {
         customBlue: '#03355F',
