@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import hero from '../../assets/hero1.png';
 
 export default function Hero() {
@@ -14,12 +15,12 @@ export default function Hero() {
           experience fast, secure, and transparent poll creation and results —
           all in one place.
         </p>
-        <a
+        <Link
           className="font-medium bg-ctaBlue text-white px-14 py-2 rounded-lg"
-          href=""
+          to="/signup"
         >
           GET STARTED
-        </a>
+        </Link>
       </div>
     </div>
   );

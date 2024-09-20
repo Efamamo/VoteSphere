@@ -1,5 +1,10 @@
+import { Link } from 'react-router-dom';
 import logo from '../assets/logo (1).png';
-export default function Header() {
+
+interface HeaderProp {
+  hideLogin?: boolean;
+}
+export default function Header(prop: HeaderProp) {
   return (
     <nav className="flex justify-between mx-16 my-10 items-center">
       <div className="flex items-center">
@@ -10,18 +15,20 @@ export default function Header() {
       </div>
 
       <div className="flex items-center gap-12">
-        <a className="font-medium" href="">
+        <Link className="font-medium" to="/">
           HOME
-        </a>
-        <a className="font-medium" href="">
+        </Link>
+        <Link className="font-medium" to="/about">
           ABOUT
-        </a>
-        <a
-          className="font-medium bg-ctaBlue text-white px-8 py-1 rounded-lg"
-          href=""
-        >
-          LOGIN
-        </a>
+        </Link>
+        {!prop.hideLogin && (
+          <Link
+            className="font-medium bg-ctaBlue text-white px-8 py-1 rounded-lg"
+            to="/login"
+          >
+            LOGIN
+          </Link>
+        )}
       </div>
     </nav>
   );

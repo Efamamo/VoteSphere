@@ -4,7 +4,7 @@ import voting from '../../../assets/voting.png';
 import secure from '../../../assets/secure.png';
 export default function Services() {
   return (
-    <div className="mt-40">
+    <div className="mt-48">
       <h2 className="text-center text-3xl font-bold">Services We Provide</h2>
       <div className="flex justify-evenly mt-11 items-start">
         <EachService
