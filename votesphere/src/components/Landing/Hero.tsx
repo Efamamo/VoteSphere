@@ -6,7 +6,7 @@ export default function Hero() {
     <div className="flex gap-28 justify-end items-center">
       <img src={hero} />
       <div className="w-1/2 flex gap-6 flex-col items-start">
-        <h1 className="text-5xl font-bold">Your voice, your choice</h1>
+        <h1 className="text-4xl font-bold">Your voice, your choice</h1>
         <p>
           VoteSphere is the ultimate platform for group-based poll management,
           empowering communities to create, manage, and vote on polls with ease.

@@ -1,9 +1,9 @@
-import mission from '../../assets/mision.png';
+import mission from '../../assets/ourmission.png';
 export default function Mission() {
   return (
-    <div className="flex mt-20 justify-center gap-16 items-center">
+    <div className="flex mt-32 justify-center gap-16 items-center">
       <div className="w-1/2 flex justify-end">
-        <img className="rounded-lg w-96" src={mission} />
+        <img className="rounded-lg w-2/3" src={mission} />
       </div>
 
       <div className="w-2/3 pr-20">

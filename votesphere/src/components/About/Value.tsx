@@ -1,7 +1,7 @@
 import values from '../../assets/values.png';
 export default function Value() {
   return (
-    <div className="mt-28">
+    <div className="mt-32">
       <h2 className="text-3xl font-bold text-center">Our Values</h2>
       <div className="mt-8 flex justify-center gap-20">
         <div className="max-w-3xl">
