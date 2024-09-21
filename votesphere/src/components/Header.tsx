@@ -3,7 +3,7 @@ import logo from '../assets/logo (1).png';
 import setting from '../assets/profile (1).png';
 import close from '../assets/close.png';
 import logout from '../assets/logout.png';
-import members from '../assets/members.jpeg';
+import members from '../assets/icons8-member-50.png';
 import { useState } from 'react';
 
 interface HeaderProp {
@@ -13,9 +13,13 @@ interface HeaderProp {
 }
 export default function Header(prop: HeaderProp) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  let logourl = '/dashboard';
+  if (!prop.loggedIn) {
+    logourl = '/';
+  }
   return (
     <nav className="flex justify-between mx-16 my-10 items-center">
-      <Link to="/">
+      <Link to={logourl}>
         <div className="flex items-center">
           <img className="w-12" src={logo} />
           <h2 className="text-2xl font-montserrat text-customBlue mt-1">
@@ -48,9 +52,7 @@ export default function Header(prop: HeaderProp) {
           <NavLink className="font-medium" to="/dashboard">
             DASHBOARD
           </NavLink>
-          <NavLink className="font-medium" to="/about">
-            ABOUT
-          </NavLink>
+
           <button
             onClick={() => {
               setIsSidebarOpen(true);
@@ -66,9 +68,7 @@ export default function Header(prop: HeaderProp) {
           <NavLink className="font-medium" to="/dashboard">
             DASHBOARD
           </NavLink>
-          <NavLink className="font-medium" to="/about">
-            ABOUT
-          </NavLink>
+
           <NavLink className="font-medium" to="/">
             LOGOUT
           </NavLink>
@@ -85,15 +85,15 @@ export default function Header(prop: HeaderProp) {
             className="absolute top-4 right-4 w-8 cursor-pointer"
             src={close}
           />{' '}
-          <h2></h2>
+          <h2 className="text-center text-2xl font-semibold mt-4">PROFILE</h2>
           <Link to="/members">
-            <div className="flex gap-2 justify-center mt-12 items-center">
-              <img className="w-8" src={members} alt="" />
+            <div className="flex gap-4 justify-center mt-12 items-center">
+              <img className="w-6" src={members} alt="" />
               <h3>MEMBERS</h3>
             </div>
           </Link>
           <Link to="/">
-            <div className="flex gap-2 justify-center mt-4 items-center">
+            <div className="flex gap-4 justify-center mt-4 items-center">
               <img className="w-6" src={logout} alt="" />
               <h3>LOGOUT</h3>
             </div>
