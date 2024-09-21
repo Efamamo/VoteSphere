@@ -15,7 +15,7 @@ interface EachPollProp {
 }
 export default function EachPoll(prop: EachPollProp) {
   const [disabled, setDisabled] = useState(false);
-  
+
   const { deletePoll, vote } = usePollContext();
   let total = 0;
 
@@ -25,7 +25,7 @@ export default function EachPoll(prop: EachPollProp) {
   return (
     <div className="shadow-xl rounded-lg lg:max-w-2xl mx-auto my-20 lg:w-1/2">
       <div className="px-4 py-2 border-b flex gap-4 justify-between items-center">
-        <h3>{prop.question}</h3>
+        <h3 className="font-semibold">{prop.question}</h3>
         <img
           onClick={() => {
             deletePoll(prop.id);
@@ -75,7 +75,7 @@ export default function EachPoll(prop: EachPollProp) {
         </div>
       ))}
 
-      <div className="flex px-4 py-2 gap-2 border-t cursor-pointer">
+      <div className="flex px-4 py-2 gap-2 border-t cursor-pointer text-ctaBlue">
         <img className="w-5" src={comment} alt="" />
         <p>{prop.commentCount} Comments</p>
       </div>

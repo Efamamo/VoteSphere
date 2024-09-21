@@ -43,7 +43,7 @@ export default function Members() {
       {members.length === 0 && (
         <h3 className="text-center text-xl font-bold">No Members</h3>
       )}
-      <div className="flex flex-col md:flex-row flex-wrap gap-6 justify-center">
+      <div className="flex flex-col md:flex-row flex-wrap gap-6 justify-center items-center">
         {members.map((member) => (
           <Member
             key={member.name}
