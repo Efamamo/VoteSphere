@@ -15,6 +15,7 @@ interface EachPollProp {
 }
 export default function EachPoll(prop: EachPollProp) {
   const [disabled, setDisabled] = useState(false);
+  
   const { deletePoll, vote } = usePollContext();
   let total = 0;
 

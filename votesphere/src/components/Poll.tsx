@@ -58,9 +58,9 @@ export default function Poll() {
   }
 
   return (
-    <div className="mt-20 mx-4 md:mx-16">
+    <div className="mt-20 mx-4 md:mx-16 mb-20">
       <h2 className="text-3xl font-bold text-center">Add Poll Information</h2>
-      <div className="shadow-lg rounded-lg max-w-4xl mx-auto px-11 py-8 mt-14">
+      <div className="shadow-lg rounded-lg max-w-4xl mx-auto px-4 md:px-11 py-8 mt-14">
         <form onSubmit={handleAddPoll}>
           <input
             className="border w-full rounded-md border-inputBORDER px-2 py-2 mt-2 mb-8 outline-none"

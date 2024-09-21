@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 export default function Signup() {
   const navigate = useNavigate();
   return (
-    <div className="mt-40">
+    <div className="mt-20 md:mt-40">
       <h2 className="text-center text-5xl font-bold">SignUp</h2>
       <div className="shadow-lg rounded-lg md:w-3/4 lg:w-1/3  px-11 py-10  mt-14 mx-4 md:mx-auto ">
         <form action="">

@@ -20,7 +20,7 @@ function Progress({ count, total, giveMargin }: ProgressProp) {
 
   const progressBarStyle = {
     marginLeft: margin,
-    width: '90%',
+    width: '85%',
     height: '5px',
     backgroundColor: 'white',
     borderRadius: '5px',

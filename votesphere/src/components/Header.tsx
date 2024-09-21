@@ -16,9 +16,9 @@ export default function Header(prop: HeaderProp) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isHumburgerOpen, setIsHumburgerOpen] = useState(false);
 
-  let logourl = '/dashboard';
+  let logouturl = '/dashboard';
   if (!prop.loggedIn) {
-    logourl = '/';
+    logouturl = '/';
   }
   return (
     <>
@@ -43,8 +43,8 @@ export default function Header(prop: HeaderProp) {
             className="absolute top-4 right-4 w-8 cursor-pointer"
             src={close}
           />{' '}
-          <Link to={logourl}>
-            <div className="flex items-center mx-auto">
+          <Link to={logouturl}>
+            <div className="flex items-center mx-auto justify-center w-full">
               <img className="w-12" src={logo} />
               <h2 className="text-2xl font-montserrat text-customBlue mt-1">
                 VOTESPHERE
@@ -75,7 +75,7 @@ export default function Header(prop: HeaderProp) {
       )}
 
       <nav className="hidden md:flex justify-between mx-16 my-10 items-center">
-        <Link to={logourl}>
+        <Link to={logouturl}>
           <div className="flex items-center">
             <img className="w-12" src={logo} />
             <h2 className="text-2xl font-montserrat text-customBlue mt-1">

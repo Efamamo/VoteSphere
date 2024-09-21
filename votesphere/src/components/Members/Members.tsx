@@ -38,7 +38,7 @@ export default function Members() {
     setIsOpen(true);
   };
   return (
-    <div className="mx-4 md:mx-16 my-32">
+    <div className="mx-4 md:mx-16 my-16 md:my-32">
       <h2 className="text-3xl font-bold mb-14 text-center">Group 1 Members</h2>
       {members.length === 0 && (
         <h3 className="text-center text-xl font-bold">No Members</h3>
