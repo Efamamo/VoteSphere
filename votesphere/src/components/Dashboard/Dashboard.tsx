@@ -9,12 +9,12 @@ export default function Dashboard() {
   const navigate = useNavigate();
 
   return (
-    <div className="mx-16 my-32">
+    <div className="mx-4 md:mx-16 my-10 md:my-32">
       <h2 className="text-3xl font-bold mb-14 text-center">Group 1 Polls</h2>
       {polls.length === 0 && (
         <h3 className="text-center text-2xl font-bold">No Polls</h3>
       )}
-      <div className="flex flex-wrap items-center">
+      <div className="lg:flex flex-wrap items-center">
         {polls.map((poll, idx) => (
           <EachPoll
             id={idx}

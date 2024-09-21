@@ -1,8 +1,8 @@
 import us from '../../assets/us.png';
 export default function Us() {
   return (
-    <div className="mt-40 flex justify-center items-center gap-12">
-      <div className="w-1/2">
+    <div className="mt-40 flex flex-col lg:flex-row justify-center items-center gap-12">
+      <div className="order-2 lg:w-1/2 lg:order-1">
         <h2 className="text-3xl font-bold mb-4">Why Us</h2>
         <p className="mb-3">
           <span className="font-semibold">Effortless Collaboration</span>: With
@@ -33,7 +33,7 @@ export default function Us() {
           and collaboration.
         </p>
       </div>
-      <img className="max-w-md" src={us} alt="" />
+      <img className="order-1 lg:max-w-md lg:order-2" src={us} alt="" />
     </div>
   );
 }

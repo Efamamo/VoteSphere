@@ -6,7 +6,7 @@ export default function Services() {
   return (
     <div className="mt-48">
       <h2 className="text-center text-3xl font-bold">Services We Provide</h2>
-      <div className="flex justify-evenly mt-11 items-start">
+      <div className="lg:flex justify-evenly mt-11 items-start">
         <EachService
           title="Group Poll Management"
           image={pollManagement}

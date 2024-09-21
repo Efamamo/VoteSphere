@@ -3,8 +3,8 @@ export default function Value() {
   return (
     <div className="mt-32">
       <h2 className="text-3xl font-bold text-center">Our Values</h2>
-      <div className="mt-8 flex justify-center gap-20">
-        <div className="max-w-3xl">
+      <div className="mt-8 flex flex-col lg:flex-row justify-center gap-20">
+        <div className="order-2 lg:order-1 max-w-3xl">
           <h3 className="text-xl font-semibold">Collaboration</h3>
           <p className="mb-4">
             We believe in the power of working together. VoteSphere enables
@@ -32,7 +32,7 @@ export default function Value() {
             decision-making.
           </p>
         </div>
-        <img className="w-96" src={values} />
+        <img className="order-1 lg:order-2 w-96 mx-auto lg:mx-0" src={values} />
       </div>
     </div>
   );

@@ -1,9 +1,9 @@
 import contact from '../../assets/contact.png';
 export default function Contact() {
   return (
-    <div className="mt-40 mb-20 flex items-center justify-center gap-20">
-      <img className="max-w-lg" src={contact} alt="" />
-      <div className="shadow-lg rounded-lg w-1/3 px-11 pt-2 pb-4">
+    <div className="mt-40 mb-20 lg:flex items-center justify-center gap-20">
+      <img className="lg:max-w-lg" src={contact} alt="" />
+      <div className="shadow-lg rounded-lg lg:w-1/3 px-11 pt-2 pb-4">
         <form action="">
           <h2 className="text-xl font-bold mb-4">Contact Us</h2>
           <input

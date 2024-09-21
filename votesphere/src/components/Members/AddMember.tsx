@@ -25,7 +25,7 @@ export default function AddMember(prop: AddProp) {
 
       {/* Modal */}
       <div className="fixed inset-0 flex items-center justify-center z-40">
-        <div className="bg-white shadow-lg rounded-lg p-6 w-96">
+        <div className="bg-white shadow-lg rounded-lg p-6 w-80 md:w-96">
           <h2 className="text-lg font-semibold mb-4">Enter Username</h2>
           <input
             onChange={(e) => setName(e.target.value)}

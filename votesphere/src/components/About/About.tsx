@@ -4,7 +4,7 @@ import Value from './Value';
 
 export default function About() {
   return (
-    <div className="mx-16">
+    <div className="mx-6 lg:mx-16">
       <Mission />
       <Value />
       <Team />

@@ -70,7 +70,7 @@ const routes = [
     path: '/add-poll',
     element: (
       <>
-        <Header hideLogin={true} loggedIn={true} />
+        <Header showDashboard={true} hideLogin={true} loggedIn={true} />
         <Poll />
         <div className="fixed bottom-0 w-full">
           <Footer />

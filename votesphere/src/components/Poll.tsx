@@ -58,7 +58,7 @@ export default function Poll() {
   }
 
   return (
-    <div className="mt-20 mx-16">
+    <div className="mt-20 mx-4 md:mx-16">
       <h2 className="text-3xl font-bold text-center">Add Poll Information</h2>
       <div className="shadow-lg rounded-lg max-w-4xl mx-auto px-11 py-8 mt-14">
         <form onSubmit={handleAddPoll}>

@@ -1,12 +1,12 @@
 import mission from '../../assets/ourmission.png';
 export default function Mission() {
   return (
-    <div className="flex mt-32 justify-center gap-16 items-center">
-      <div className="w-1/2 flex justify-end">
-        <img className="rounded-lg w-2/3" src={mission} />
+    <div className="lg:flex mt-32 justify-center gap-16 items-center">
+      <div className="lg:w-1/2 lg:flex justify-end">
+        <img className="rounded-lg lg:w-2/3" src={mission} />
       </div>
 
-      <div className="w-2/3 pr-20">
+      <div className="mt-4 lg:w-2/3 lg:pr-20">
         <h2 className="text-3xl font-bold mb-4">Our Mission</h2>
         <p>
           At VoteSphere, our mission is to revolutionize the way people engage

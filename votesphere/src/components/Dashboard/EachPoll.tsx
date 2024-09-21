@@ -22,8 +22,8 @@ export default function EachPoll(prop: EachPollProp) {
     total += c.count;
   }
   return (
-    <div className="shadow-lg rounded-lg max-w-2xl mx-auto my-16 w-1/2">
-      <div className="px-4 py-2 border-b flex justify-between">
+    <div className="shadow-xl rounded-lg lg:max-w-2xl mx-auto my-20 lg:w-1/2">
+      <div className="px-4 py-2 border-b flex gap-4 justify-between items-center">
         <h3>{prop.question}</h3>
         <img
           onClick={() => {
@@ -38,7 +38,7 @@ export default function EachPoll(prop: EachPollProp) {
       {prop.choices.map((choice, idx) => (
         <div key={choice.choice} className="px-4 py-2">
           <div className="my-1">
-            <div className="flex gap-4 items-center">
+            <div className="flex gap-6 items-center">
               {!disabled && (
                 <input
                   className="form-radio h-5 w-5 text-blue-600 border-gray-300 focus:ring-blue-500 cursor-pointer"
@@ -62,7 +62,7 @@ export default function EachPoll(prop: EachPollProp) {
                 <label htmlFor="">{choice.choice}</label>
               </div>
             </div>
-            {total == 0 && <hr className="mt-1 ml-8 w-11/12 mb-2" />}
+            {total == 0 && <hr className="mt-1 ml-10 w-11/12 mb-2" />}
             {total > 0 && (
               <Progress
                 count={choice.count}
