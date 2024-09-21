@@ -8,7 +8,7 @@ export default function Dashboard() {
   const navigate = useNavigate();
 
   return (
-    <div className="mx-2 md:mx-16 my-10 md:my-32 mb-20">
+    <div className="mx-4 md:mx-16 my-10 md:my-32 mb-20">
       <h2 className="text-3xl font-bold mb-14 text-center">Group 1 Polls</h2>
       {polls.length === 0 && (
         <h3 className="text-center text-2xl font-bold">No Polls</h3>
