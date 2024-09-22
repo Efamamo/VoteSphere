@@ -57,7 +57,7 @@ export default function Dashboard() {
       }
     }
     fetchPolls();
-  }, []);
+  }, [groupName]);
 
   async function handleAddGroup(gName: string, aName: string | null) {
     try {
