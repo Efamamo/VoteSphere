@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState } from 'react';
+import axios from 'axios';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 type Poll = {
   question: string;
@@ -18,43 +19,30 @@ const PollContext = createContext<PollContextType | undefined>(undefined);
 export const PollProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [polls, setPolls] = useState<Poll[]>([
-    {
-      question: 'Which social media platform do you use the most?',
-      choices: [
-        { choice: 'Facebook', count: 0 },
-        { choice: 'Instagram', count: 0 },
-        { choice: 'Twitter / X', count: 0 },
-        { choice: 'Tiktok', count: 0 },
-        { choice: 'Telegram', count: 0 },
-      ],
-      commentCount: 20,
-    },
-    {
-      question: 'What is your preferred work environment?',
-      choices: [
-        { choice: 'Remote', count: 0 },
-        { choice: 'Hybrid (part-time remote, part-time office)', count: 0 },
-        { choice: 'In-office', count: 0 },
-        { choice: 'Co-working spaces', count: 0 },
-        { choice: 'No preference', count: 0 },
-      ],
-      commentCount: 10,
-    },
-    {
-      question: 'What type of vacation destination do you prefer?',
-      choices: [
-        { choice: 'Beach', count: 0 },
-        { choice: 'Mountains', count: 0 },
-        { choice: 'City', count: 0 },
-        { choice: 'Countryside', count: 0 },
-        { choice: 'Adventure (e.g., hiking, rafting)', count: 0 },
-      ],
-      commentCount: 16,
-    },
-  ]);
+  const [polls, setPolls] = useState<Poll[]>([]);
 
-  // Add a new poll
+  useEffect(() => {
+    async function fetchPolls() {
+      const headers = {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      };
+      try {
+        const response = await axios.get(
+          `http://localhost:9000/polls?groupId=${localStorage.getItem(
+            'groupID'
+          )}`,
+          { headers }
+        );
+
+        setPolls(response.data);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    fetchPolls();
+  }, []);
+
   const addPoll = (newPoll: Poll) => {
     setPolls((prevPolls) => [...prevPolls, newPoll]);
   };

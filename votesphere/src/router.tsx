@@ -8,6 +8,7 @@ import Signup from './components/Auth/Signup';
 import Poll from './components/Poll';
 import Members from './components/Members/Members';
 import Dashboard from './components/Dashboard/Dashboard';
+import PrivateRoute from './components/PrivateRoutes';
 
 const routes = [
   {
@@ -57,37 +58,37 @@ const routes = [
   {
     path: '/dashboard',
     element: (
-      <>
-        <Header hideLogin={true} loggedIn={true} />
+      <PrivateRoute>
+        <Header hideLogin={true} />
         <Dashboard />
         <div className="fixed bottom-0 w-full">
           <Footer />
         </div>
-      </>
+      </PrivateRoute>
     ),
   },
   {
     path: '/add-poll',
     element: (
-      <>
-        <Header showDashboard={true} hideLogin={true} loggedIn={true} />
+      <PrivateRoute>
+        <Header showDashboard={true} hideLogin={true} />
         <Poll />
         <div className="fixed bottom-0 w-full">
           <Footer />
         </div>
-      </>
+      </PrivateRoute>
     ),
   },
   {
     path: '/members',
     element: (
-      <>
-        <Header loggedIn={true} inMember={true} />
+      <PrivateRoute>
+        <Header inMember={true} />
         <Members />
         <div className="fixed bottom-0 w-full">
           <Footer />
         </div>
-      </>
+      </PrivateRoute>
     ),
   },
 ];

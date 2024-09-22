@@ -54,12 +54,14 @@ export default function Members() {
         ))}
       </div>
 
-      <button
-        onClick={openModal}
-        className="font-medium bg-ctaBlue text-white px-20 py-2 block rounded-lg mt-8 md:mt-20 mx-auto"
-      >
-        Add Member
-      </button>
+      {localStorage.getItem('role') === 'Admin' && (
+        <button
+          onClick={openModal}
+          className="font-medium bg-ctaBlue text-white px-20 py-2 block rounded-lg mt-8 md:mt-20 mx-auto"
+        >
+          Add Member
+        </button>
+      )}
       {isOpen && <AddMember closeModal={closeModal} addMember={addMember} />}
     </div>
   );

@@ -11,14 +11,16 @@ export default function Member({ name, email, onDelete }: MemberProp) {
       <img className="w-32 mx-auto" src={member} alt="" />
       <p className="mt-2">{name}</p>
       <p>{email}</p>
-      <img
-        onClick={() => {
-          onDelete(name);
-        }}
-        className="w-7 cursor-pointer absolute right-2 top-2"
-        src={trash}
-        alt=""
-      />
+      {localStorage.getItem('role') === 'Admin' && (
+        <img
+          onClick={() => {
+            onDelete(name);
+          }}
+          className="w-7 cursor-pointer absolute right-2 top-2"
+          src={trash}
+          alt=""
+        />
+      )}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import logo from '../assets/logo (1).png';
 import setting from '../assets/profile (1).png';
 import close from '../assets/close.png';
@@ -9,15 +9,24 @@ import { useState } from 'react';
 interface HeaderProp {
   hideLogin?: boolean;
   inMember?: boolean;
-  loggedIn?: boolean;
   showDashboard?: boolean;
 }
 export default function Header(prop: HeaderProp) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isHumburgerOpen, setIsHumburgerOpen] = useState(false);
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    localStorage.removeItem('username');
+    localStorage.removeItem('role');
+    localStorage.removeItem('groupID');
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    navigate('/login');
+  }
 
   let logouturl = '/dashboard';
-  if (!prop.loggedIn) {
+  if (!localStorage.getItem('accessToken')) {
     logouturl = '/';
   }
   return (
@@ -52,24 +61,38 @@ export default function Header(prop: HeaderProp) {
             </div>
           </Link>{' '}
           <div className="flex flex-col justify-center items-center mt-8 gap-1">
-            <NavLink className="font-medium" to="/">
-              HOME
-            </NavLink>
-            <NavLink className="font-medium" to="/login">
-              LOGIN
-            </NavLink>
-            <NavLink className="font-medium" to="/dashboard">
-              DASHBOARD
-            </NavLink>
-            <NavLink className="font-medium" to="/about">
-              ABOUT
-            </NavLink>
-            <NavLink className="font-medium" to="/members">
-              MEMBERS
-            </NavLink>
-            <NavLink className="font-medium" to="/">
-              LOGOUT
-            </NavLink>
+            {!localStorage.getItem('accessToken') && (
+              <NavLink className="font-medium" to="/">
+                HOME
+              </NavLink>
+            )}
+            {!localStorage.getItem('accessToken') && (
+              <NavLink className="font-medium" to="/about">
+                ABOUT
+              </NavLink>
+            )}
+            {!localStorage.getItem('accessToken') && (
+              <NavLink className="font-medium" to="/login">
+                LOGIN
+              </NavLink>
+            )}
+
+            {localStorage.getItem('accessToken') && (
+              <NavLink className="font-medium" to="/dashboard">
+                DASHBOARD
+              </NavLink>
+            )}
+            {localStorage.getItem('accessToken') &&
+              localStorage.getItem('groupID') !== 'null' && (
+                <NavLink className="font-medium" to="/members">
+                  MEMBERS
+                </NavLink>
+              )}
+            {localStorage.getItem('accessToken') && (
+              <button onClick={handleLogout} className="font-medium">
+                LOGOUT
+              </button>
+            )}
           </div>
         </div>
       )}
@@ -84,7 +107,7 @@ export default function Header(prop: HeaderProp) {
           </div>
         </Link>
 
-        {!prop.loggedIn && (
+        {!localStorage.getItem('accessToken') && (
           <div className="flex items-center gap-12">
             <NavLink className="font-medium" to="/">
               HOME
@@ -103,7 +126,7 @@ export default function Header(prop: HeaderProp) {
           </div>
         )}
 
-        {prop.loggedIn && !prop.inMember && (
+        {localStorage.getItem('accessToken') && !prop.inMember && (
           <div className="flex items-center gap-12">
             {prop.showDashboard && (
               <NavLink className="font-medium" to="/dashboard">
@@ -121,15 +144,15 @@ export default function Header(prop: HeaderProp) {
             </button>
           </div>
         )}
-        {prop.loggedIn && prop.inMember && (
+        {localStorage.getItem('accessToken') && prop.inMember && (
           <div className="flex items-center gap-12">
             <NavLink className="font-medium" to="/dashboard">
               DASHBOARD
             </NavLink>
 
-            <NavLink className="font-medium" to="/">
+            <button onClick={handleLogout} className="font-medium">
               LOGOUT
-            </NavLink>
+            </button>
           </div>
         )}
         {isSidebarOpen && (
@@ -144,16 +167,20 @@ export default function Header(prop: HeaderProp) {
               src={close}
             />{' '}
             <h2 className="text-center text-2xl font-semibold mt-4">PROFILE</h2>
-            <Link to="/members">
-              <div className="flex gap-4 justify-center mt-12 items-center">
-                <img className="w-6" src={members} alt="" />
-                <h3>MEMBERS</h3>
-              </div>
-            </Link>
+            {localStorage.getItem('groupID') != 'null' && (
+              <Link to="/members">
+                <div className="flex gap-4 justify-center mt-12 items-center">
+                  <img className="w-6" src={members} alt="" />
+                  <h3>MEMBERS</h3>
+                </div>
+              </Link>
+            )}
             <Link to="/">
               <div className="flex gap-4 justify-center mt-4 items-center">
                 <img className="w-6" src={logout} alt="" />
-                <h3>LOGOUT</h3>
+                <button onClick={handleLogout} className="font-medium">
+                  LOGOUT
+                </button>
               </div>
             </Link>
           </div>

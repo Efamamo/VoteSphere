@@ -26,14 +26,16 @@ export default function EachPoll(prop: EachPollProp) {
     <div className="shadow-xl rounded-lg lg:max-w-2xl mx-auto my-20 lg:w-1/2">
       <div className="px-4 py-2 border-b flex gap-4 justify-between items-center">
         <h3 className="font-semibold">{prop.question}</h3>
-        <img
-          onClick={() => {
-            deletePoll(prop.id);
-          }}
-          className="w-6 cursor-pointer"
-          src={trash}
-          alt=""
-        />
+        {localStorage.getItem('role') === 'Admin' && (
+          <img
+            onClick={() => {
+              deletePoll(prop.id);
+            }}
+            className="w-6 cursor-pointer"
+            src={trash}
+            alt=""
+          />
+        )}
       </div>
 
       {prop.choices.map((choice, idx) => (
