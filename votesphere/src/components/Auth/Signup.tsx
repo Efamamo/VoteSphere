@@ -46,7 +46,7 @@ export default function Signup() {
 
     try {
       const response = await axios.post(
-        'http://localhost:9000/auth/signup',
+        'https://votespherebackend.onrender.com/auth/signup',
         body,
         {
           headers,

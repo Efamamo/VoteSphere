@@ -19,7 +19,7 @@ export default function Members() {
       const groupId = localStorage.getItem('groupID');
       try {
         const response = await axios.get(
-          `http://localhost:9000/groups/${groupId}/members`
+          `https://votespherebackend.onrender.com/groups/${groupId}/members`
         );
         setMembers(response.data);
       } catch (e) {
@@ -46,7 +46,7 @@ export default function Members() {
         username: name,
       };
       await axios.post(
-        `http://localhost:9000/groups/${groupId}/members`,
+        `https://votespherebackend.onrender.com/groups/${groupId}/members`,
         body,
         { headers }
       );
@@ -72,7 +72,7 @@ export default function Members() {
       };
 
       await axios.delete(
-        `http://localhost:9000/groups/${groupId}/members/${name}`,
+        `https://votespherebackend.onrender.com/groups/${groupId}/members/${name}`,
         {
           headers,
         }

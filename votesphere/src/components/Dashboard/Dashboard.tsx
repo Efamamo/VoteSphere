@@ -25,7 +25,7 @@ export default function Dashboard() {
       if (groupID != 'null') {
         try {
           const response = await axios.get(
-            `http://localhost:9000/groups/${groupID}`
+            `https://votespherebackend.onrender.com/groups/${groupID}`
           );
           setGroupName(response.data.groupName);
         } catch (e) {
@@ -46,7 +46,7 @@ export default function Dashboard() {
         };
         try {
           const response = await axios.get(
-            `http://localhost:9000/polls?groupId=${groupID}`,
+            `https://votespherebackend.onrender.com/polls?groupId=${groupID}`,
             { headers }
           );
 
@@ -70,9 +70,13 @@ export default function Dashboard() {
         adminUsername: aName,
         groupName: gName,
       };
-      const respone = await axios.post('http://localhost:9000/groups', body, {
-        headers,
-      });
+      const respone = await axios.post(
+        'https://votespherebackend.onrender.com/groups',
+        body,
+        {
+          headers,
+        }
+      );
       localStorage.setItem('groupID', respone.data.groupID);
       setHasGroup(respone.data.groupID);
       setGroupName(respone.data.groupName);

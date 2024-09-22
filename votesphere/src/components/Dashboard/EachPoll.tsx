@@ -27,7 +27,7 @@ export default function EachPoll(prop: EachPollProp) {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         };
         const response = await axios.get(
-          `http://localhost:9000/polls/${prop.id}`,
+          `https://votespherebackend.onrender.com/polls/${prop.id}`,
           { headers }
         );
         const data = await response.data;

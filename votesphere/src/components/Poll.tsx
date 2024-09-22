@@ -57,9 +57,13 @@ export default function Poll() {
         Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       };
 
-      const response = await axios.post('http://localhost:9000/polls', body, {
-        headers,
-      });
+      const response = await axios.post(
+        'https://votespherebackend.onrender.com/polls',
+        body,
+        {
+          headers,
+        }
+      );
 
       addPoll(response.data);
       setQuestion('');

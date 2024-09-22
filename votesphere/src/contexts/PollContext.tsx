@@ -38,7 +38,9 @@ export const PollProvider: React.FC<{ children: React.ReactNode }> = ({
         'Content-Type': 'application/json',
         Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       };
-      await axios.delete(`http://localhost:9000/polls/${id}`, { headers });
+      await axios.delete(`https://votespherebackend.onrender.com/polls/${id}`, {
+        headers,
+      });
       setPolls((prevPolls) => prevPolls.filter((p) => p.id !== id));
     } catch (e) {
       if (axios.isAxiosError(e)) {
@@ -60,7 +62,7 @@ export const PollProvider: React.FC<{ children: React.ReactNode }> = ({
       };
 
       await axios.patch(
-        `http://localhost:9000/polls/${pid}/vote?optionId=${cid}`,
+        `https://votespherebackend.onrender.com/polls/${pid}/vote?optionId=${cid}`,
         {},
         {
           headers,
