@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 interface AddProp {
   closeModal: () => void;
+  userError: string;
   addMember: (name: string, email: string) => void;
 }
 export default function AddMember(prop: AddProp) {
@@ -46,6 +47,9 @@ export default function AddMember(prop: AddProp) {
               Close
             </button>
           </div>
+          {prop.userError && (
+            <p className="text-sm text-red-700 mt-4">{prop.userError}</p>
+          )}
         </div>
       </div>
     </>

@@ -128,31 +128,35 @@ export default function Signup() {
           {passwordError && (
             <p className="text-sm text-red-700">{passwordError}</p>
           )}
-          <div className="flex flex-col items-center">
-            <h2>Pick Your Role</h2>
-            <div>
-              <input
-                onChange={handleRole}
-                type="radio"
-                name="role"
-                id="user"
-                value={'User'}
-              />
-              <label className="ml-2" htmlFor="user">
-                User
-              </label>
-            </div>
-            <div>
-              <input
-                onChange={handleRole}
-                type="radio"
-                name="role"
-                id="admin"
-                value={'Admin'}
-              />
-              <label className="ml-1" htmlFor="admin">
-                Admin
-              </label>
+          <div className="flex flex-col items-center mt-6">
+            <h2 className="mb-2 text-lg font-semibold">Pick Your Role</h2>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center">
+                <input
+                  className="form-radio h-5 w-5 text-blue-600 border-gray-300 focus:ring-blue-500 cursor-pointer"
+                  onChange={handleRole}
+                  type="radio"
+                  name="role"
+                  id="user"
+                  value={'User'}
+                />
+                <label className="ml-2" htmlFor="user">
+                  User
+                </label>
+              </div>
+              <div className="flex items-center">
+                <input
+                  className="form-radio h-5 w-5 text-blue-600 border-gray-300 focus:ring-blue-500 cursor-pointer"
+                  onChange={handleRole}
+                  type="radio"
+                  name="role"
+                  id="admin"
+                  value={'Admin'}
+                />
+                <label className="ml-1" htmlFor="admin">
+                  Admin
+                </label>
+              </div>
             </div>
           </div>
           {roleError && <p className="text-sm text-red-700">{roleError}</p>}

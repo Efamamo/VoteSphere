@@ -12,6 +12,7 @@ interface Member {
 export default function Members() {
   const [members, setMembers] = useState<Member[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [userError, setUserError] = useState('');
 
   useEffect(() => {
     async function fetchMembers() {
@@ -29,6 +30,7 @@ export default function Members() {
   });
 
   async function addMember(name: string, email: string) {
+    setUserError('');
     const groupId = localStorage.getItem('groupID');
 
     const member = members.find((member) => member.username == name);
@@ -51,7 +53,11 @@ export default function Members() {
       members.push({ username: name, email, isAdmin: false });
       setIsOpen(false);
     } catch (e) {
-      alert('You cant add admin to your group');
+      if (axios.isAxiosError(e)) {
+        if (e.response) {
+          setUserError(e.response.data.message);
+        }
+      }
       return;
     }
   }
@@ -79,6 +85,7 @@ export default function Members() {
   }
 
   const closeModal = () => {
+    setUserError('');
     setIsOpen(false);
   };
 
@@ -111,7 +118,13 @@ export default function Members() {
           Add Member
         </button>
       )}
-      {isOpen && <AddMember closeModal={closeModal} addMember={addMember} />}
+      {isOpen && (
+        <AddMember
+          closeModal={closeModal}
+          addMember={addMember}
+          userError={userError}
+        />
+      )}
     </div>
   );
 }

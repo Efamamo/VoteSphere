@@ -3,6 +3,8 @@ import EachPoll from './EachPoll';
 import { usePollContext } from '../../contexts/PollContext';
 import AddGroup from './AddGroup';
 import { useEffect, useState } from 'react';
+import noGroup from '../../assets/create cool ima 42ca4e70-75bf-409f-8590-ec2d9ba161d1.png';
+import noPolls from '../../assets/create cool ima 78a1b920-1ca2-4208-a513-676da49b171e.png';
 import axios from 'axios';
 
 export default function Dashboard() {
@@ -82,29 +84,26 @@ export default function Dashboard() {
   if (hasGroup === 'null') {
     return (
       <>
-        {localStorage.getItem('role') === 'Admin' && (
-          <div className="max-w-2xl mx-auto mt-40">
-            {' '}
-            <h2 className="text-center text-xl font-semibold">
-              Create A group To continue
-            </h2>{' '}
-            <button
-              onClick={() => {
-                setIsOpen(true);
-              }}
-              className="font-medium bg-ctaBlue text-white px-20 py-2 block rounded-lg mt-2 mx-auto "
-            >
-              Add Group
-            </button>
-          </div>
-        )}
-        {localStorage.getItem('role') === 'User' && (
-          <div className="h-screen flex justify-center items-stretch">
-            <h2 className="text-center text-3xl font-semibold">
-              You are not assigned to Any Group
-            </h2>
-          </div>
-        )}
+        <div className="max-w-2xl mx-auto mt-32 flex flex-col items-center">
+          {' '}
+          <img className="max-w-80 mb-8" src={noGroup} alt="" />
+          {localStorage.getItem('role') === 'Admin' && (
+            <>
+              <h2 className="text-center text-xl font-semibold">
+                Create A group To continue
+              </h2>
+              <button
+                onClick={() => {
+                  setIsOpen(true);
+                }}
+                className="font-medium bg-ctaBlue text-white px-20 py-2 block rounded-lg mt-2 mb-2 mx-auto "
+              >
+                Create Group
+              </button>
+            </>
+          )}
+        </div>
+
         {isOpen && (
           <AddGroup closeModal={closeModal} addGroup={handleAddGroup} />
         )}
@@ -118,7 +117,7 @@ export default function Dashboard() {
         Group {groupName} Polls
       </h2>
       {polls.length === 0 && (
-        <h3 className="text-center text-2xl font-bold">No Polls</h3>
+        <img className="max-w-80 mb-8 mx-auto" src={noPolls} alt="" />
       )}
       <div className="lg:flex flex-wrap items-center">
         {polls.map((poll, idx) => (
