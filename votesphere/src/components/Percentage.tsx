@@ -3,13 +3,10 @@ interface ProgressProp {
   total: number;
   giveMargin: boolean;
 }
-function Progress({ count, total, giveMargin }: ProgressProp) {
+function Progress({ count, total }: ProgressProp) {
   let percentage = 0;
 
-  let margin = '34px';
-  if (!giveMargin) {
-    margin = '48px';
-  }
+  let margin = '50px';
 
   if (total !== 0) {
     percentage = (count / total) * 100;
