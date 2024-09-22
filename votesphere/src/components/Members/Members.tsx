@@ -49,8 +49,10 @@ export default function Members() {
         { headers }
       );
       members.push({ username: name, email, isAdmin: false });
+      setIsOpen(false);
     } catch (e) {
-      console.error(e);
+      alert('You cant add admin to your group');
+      return;
     }
   }
 

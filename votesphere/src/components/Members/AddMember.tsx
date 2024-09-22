@@ -12,7 +12,6 @@ export default function AddMember(prop: AddProp) {
       return;
     }
     prop.addMember(name, 'dummy@gmail.com');
-    prop.closeModal();
   }
 
   return (

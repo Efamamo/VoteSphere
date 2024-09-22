@@ -71,7 +71,6 @@ export default function Signup() {
         // Check if the message is an array
         if (Array.isArray(message)) {
           for (let e of message) {
-            console.log(e.toLowerCase());
             if (e.toLowerCase().includes('username')) {
               setUsernameError(e);
             } else if (e.toLowerCase().includes('email')) {
