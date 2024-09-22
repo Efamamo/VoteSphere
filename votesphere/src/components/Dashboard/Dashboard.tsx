@@ -9,6 +9,7 @@ export default function Dashboard() {
   const { polls, updatePolls } = usePollContext();
   const [isOpen, setIsOpen] = useState(false);
   const [groupName, setGroupName] = useState('');
+  const [hasGroup, setHasGroup] = useState(localStorage.getItem('groupID'));
 
   const navigate = useNavigate();
 
@@ -18,13 +19,16 @@ export default function Dashboard() {
 
   useEffect(() => {
     async function fetchGroupName() {
-      try {
-        const response = await axios.get(
-          'http://localhost:9000/groups/4ee5b97e-8878-49c1-a153-b8e69f7e626d'
-        );
-        setGroupName(response.data.groupName);
-      } catch (e) {
-        console.error(e);
+      const groupID = localStorage.getItem('groupID');
+      if (groupID != 'null') {
+        try {
+          const response = await axios.get(
+            `http://localhost:9000/groups/${groupID}`
+          );
+          setGroupName(response.data.groupName);
+        } catch (e) {
+          console.error(e);
+        }
       }
     }
     fetchGroupName();
@@ -32,21 +36,22 @@ export default function Dashboard() {
 
   useEffect(() => {
     async function fetchPolls() {
-      const headers = {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-      };
-      try {
-        const response = await axios.get(
-          `http://localhost:9000/polls?groupId=${localStorage.getItem(
-            'groupID'
-          )}`,
-          { headers }
-        );
+      const groupID = localStorage.getItem('groupID');
+      if (groupID != 'null') {
+        const headers = {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        };
+        try {
+          const response = await axios.get(
+            `http://localhost:9000/polls?groupId=${groupID}`,
+            { headers }
+          );
 
-        updatePolls(response.data);
-      } catch (e) {
-        console.log(e);
+          updatePolls(response.data);
+        } catch (e) {
+          console.log(e);
+        }
       }
     }
     fetchPolls();
@@ -66,15 +71,15 @@ export default function Dashboard() {
       const respone = await axios.post('http://localhost:9000/groups', body, {
         headers,
       });
-      console.log(respone);
+      localStorage.setItem('groupID', respone.data.groupID);
+      setHasGroup(respone.data.groupID);
+      setGroupName(respone.data.groupName);
     } catch (error) {
       console.log(error);
     }
   }
 
-  const group = localStorage.getItem('groupID');
-
-  if (group === 'null') {
+  if (hasGroup === 'null') {
     return (
       <>
         {localStorage.getItem('role') === 'Admin' && (
@@ -94,9 +99,11 @@ export default function Dashboard() {
           </div>
         )}
         {localStorage.getItem('role') === 'User' && (
-          <h2 className="text-center text-3xl font-semibold">
-            You are not assigned to Any Group
-          </h2>
+          <div className="h-screen flex justify-center items-stretch">
+            <h2 className="text-center text-3xl font-semibold">
+              You are not assigned to Any Group
+            </h2>
+          </div>
         )}
         {isOpen && (
           <AddGroup closeModal={closeModal} addGroup={handleAddGroup} />

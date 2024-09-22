@@ -1,5 +1,7 @@
 import { useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { CircularProgress } from '@mui/material';
+
 import axios from 'axios';
 export default function Signup() {
   const navigate = useNavigate();
@@ -9,9 +11,18 @@ export default function Signup() {
 
   const [usernameError, setUsernameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [roleError, setRoleError] = useState('');
+
   const [emailError, setEmailError] = useState('');
+  const [role, setRole] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  function handleRole(e: any) {
+    setRole(e.target.value);
+  }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    setLoading(true);
     e.preventDefault();
     const username = usernameRef.current?.value;
     const email = emailRef.current?.value;
@@ -20,6 +31,7 @@ export default function Signup() {
     setUsernameError('');
     setEmailError('');
     setPasswordError('');
+    setRoleError('');
 
     const headers = {
       'Content-Type': 'application/json',
@@ -29,7 +41,7 @@ export default function Signup() {
       username,
       password,
       email,
-      role: 'User',
+      role,
     };
 
     try {
@@ -40,6 +52,8 @@ export default function Signup() {
           headers,
         }
       );
+      setLoading(false);
+
       localStorage.setItem('username', response.data.username);
       localStorage.setItem('role', response.data.role);
       localStorage.setItem('groupID', response.data.groupID);
@@ -48,6 +62,8 @@ export default function Signup() {
 
       navigate('/dashboard');
     } catch (error: any) {
+      setLoading(false);
+
       if (axios.isAxiosError(error)) {
         const response = error.response?.data;
         const message = response?.message;
@@ -62,6 +78,8 @@ export default function Signup() {
               setEmailError(e);
             } else if (e.toLowerCase().includes('password')) {
               setPasswordError(e);
+            } else if (e.toLowerCase().includes('role')) {
+              setRoleError(e);
             }
           }
         } else if (typeof message === 'string') {
@@ -111,9 +129,45 @@ export default function Signup() {
           {passwordError && (
             <p className="text-sm text-red-700">{passwordError}</p>
           )}
+          <div className="flex flex-col items-center">
+            <h2>Pick Your Role</h2>
+            <div>
+              <input
+                onChange={handleRole}
+                type="radio"
+                name="role"
+                id="user"
+                value={'User'}
+              />
+              <label className="ml-2" htmlFor="user">
+                User
+              </label>
+            </div>
+            <div>
+              <input
+                onChange={handleRole}
+                type="radio"
+                name="role"
+                id="admin"
+                value={'Admin'}
+              />
+              <label className="ml-1" htmlFor="admin">
+                Admin
+              </label>
+            </div>
+          </div>
+          {roleError && <p className="text-sm text-red-700">{roleError}</p>}
 
           <button className="font-medium bg-ctaBlue text-white w-full py-2 rounded-lg mt-4">
-            Signup
+            {loading ? (
+              <CircularProgress
+                size={18}
+                thickness={4}
+                sx={{ color: 'white', padding: 0, margin: 0 }}
+              />
+            ) : (
+              'Signup'
+            )}
           </button>
           <p className="text-center mt-4">
             Already have an account?{' '}

@@ -43,6 +43,7 @@ export default function Login() {
 
       navigate('/dashboard');
     } catch (error: any) {
+      setLoading(false);
       if (axios.isAxiosError(error)) {
         setCredentialError('Invalid Credential');
       } else {
@@ -73,11 +74,13 @@ export default function Login() {
           )}
 
           {loading ? (
-            <CircularProgress
-              size={18}
-              thickness={4}
-              sx={{ color: 'white', padding: 0, margin: 0 }}
-            />
+            <button className="font-medium bg-ctaBlue text-white w-full py-2 rounded-lg mt-4">
+              <CircularProgress
+                size={18}
+                thickness={4}
+                sx={{ color: 'white', padding: 0, margin: 0 }}
+              />
+            </button>
           ) : (
             <button className="font-medium bg-ctaBlue text-white w-full py-2 rounded-lg mt-4">
               Login
