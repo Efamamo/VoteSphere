@@ -20,17 +20,15 @@ const refreshAccessToken = async (): Promise<string | null> => {
   if (!refreshToken) return null;
 
   try {
-    const response = await axiosInstance.post('/auth/refresh-token', {
-      refreshToken,
+    const response = await axiosInstance.get('auth/refresh-token', {
+      headers: {
+        Authorization: `Bearer ${refreshToken}`,
+      },
     });
 
-    if (response.status === 200) {
-      const { accessToken } = response.data;
-      localStorage.setItem('accessToken', accessToken);
-      return accessToken;
-    }
-
-    return null;
+    const { accessToken } = response.data;
+    localStorage.setItem('accessToken', accessToken);
+    return accessToken;
   } catch (error) {
     console.error('Failed to refresh token:', error);
     return null;
