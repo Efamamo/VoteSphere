@@ -1,8 +1,9 @@
 import { Navigate } from 'react-router-dom';
 import React, { ReactNode } from 'react';
+import axiosInstance from '../api/axiosInstance';
 
 // Define the type for the props, which includes `children`
-interface PublicRouteProps {
+interface PublicRouteProp {
   children: ReactNode;
 }
 
@@ -13,25 +14,20 @@ const isTokenExpired = (token: string): boolean => {
   return Date.now() > expiration;
 };
 
-// Mock function to refresh tokens (replace this with your actual refresh logic)
+// Function to refresh tokens using axios
 const refreshAccessToken = async (): Promise<string | null> => {
   const refreshToken = localStorage.getItem('refreshToken');
   if (!refreshToken) return null;
 
   try {
-    const response = await fetch('/api/auth/refresh-token', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ refreshToken }),
+    const response = await axiosInstance.post('/auth/refresh-token', {
+      refreshToken,
     });
 
-    if (response.ok) {
-      const data = await response.json();
-      const newAccessToken = data.accessToken;
-      localStorage.setItem('accessToken', newAccessToken);
-      return newAccessToken;
+    if (response.status === 200) {
+      const { accessToken } = response.data;
+      localStorage.setItem('accessToken', accessToken);
+      return accessToken;
     }
 
     return null;
@@ -60,7 +56,7 @@ const isAuthenticated = async (): Promise<boolean> => {
 };
 
 // PrivateRoute component
-const PublicRoute: React.FC<PublicRouteProps> = ({ children }) => {
+const PublicRoute: React.FC<PublicRouteProp> = ({ children }) => {
   const [auth, setAuth] = React.useState<boolean | null>(null);
 
   React.useEffect(() => {
@@ -73,10 +69,15 @@ const PublicRoute: React.FC<PublicRouteProps> = ({ children }) => {
   }, []);
 
   if (auth === null) {
+    // Optionally render a loading spinner while authentication is being checked
     return <div>Loading...</div>;
   }
 
-  return !auth ? <>{children}</> : <Navigate to="/dashboard" />;
+  if (!auth) {
+    return <>{children}</>;
+  } else {
+    return <Navigate to="/dashboard" />;
+  }
 };
 
 export default PublicRoute;

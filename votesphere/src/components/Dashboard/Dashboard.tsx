@@ -5,8 +5,8 @@ import AddGroup from './AddGroup';
 import { useEffect, useState } from 'react';
 import noGroup from '../../assets/create cool ima 42ca4e70-75bf-409f-8590-ec2d9ba161d1.png';
 import noPolls from '../../assets/create cool ima 78a1b920-1ca2-4208-a513-676da49b171e.png';
-import axios from 'axios';
 import { CircularProgress } from '@mui/material';
+import axiosInstance from '../../api/axiosInstance';
 
 export default function Dashboard() {
   const { polls, updatePolls } = usePollContext();
@@ -27,9 +27,7 @@ export default function Dashboard() {
       const groupID = localStorage.getItem('groupID');
       if (groupID != 'null') {
         try {
-          const response = await axios.get(
-            `https://votespherebackend.onrender.com/groups/${groupID}`
-          );
+          const response = await axiosInstance.get(`/groups/${groupID}`);
           setGroupName(response.data.groupName);
         } catch (e) {
           console.error(e);
@@ -50,8 +48,8 @@ export default function Dashboard() {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         };
         try {
-          const response = await axios.get(
-            `https://votespherebackend.onrender.com/polls?groupId=${groupID}`,
+          const response = await axiosInstance.get(
+            `/polls?groupId=${groupID}`,
             { headers }
           );
 
@@ -78,13 +76,9 @@ export default function Dashboard() {
         adminUsername: aName,
         groupName: gName,
       };
-      const respone = await axios.post(
-        'https://votespherebackend.onrender.com/groups',
-        body,
-        {
-          headers,
-        }
-      );
+      const respone = await axiosInstance.post('/groups', body, {
+        headers,
+      });
       localStorage.setItem('groupID', respone.data.groupID);
       setHasGroup(respone.data.groupID);
       setGroupName(respone.data.groupName);

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { usePollContext } from '../contexts/PollContext';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { CircularProgress } from '@mui/material';
+import axiosInstance from '../api/axiosInstance';
 
 export default function Poll() {
   const { addPoll } = usePollContext();
@@ -61,7 +61,7 @@ export default function Poll() {
         Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       };
 
-      const response = await axios.post(
+      const response = await axiosInstance.post(
         'https://votespherebackend.onrender.com/polls',
         body,
         {

@@ -3,8 +3,8 @@ import Progress from '../Percentage';
 import trash from '../../assets/trash.png';
 import { usePollContext } from '../../contexts/PollContext';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { CircularProgress } from '@mui/material';
+import axiosInstance from '../../api/axiosInstance';
 interface Choice {
   id: string;
   optionText: string;
@@ -28,7 +28,7 @@ export default function EachPoll(prop: EachPollProp) {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         };
-        const response = await axios.get(
+        const response = await axiosInstance.get(
           `https://votespherebackend.onrender.com/polls/${prop.id}`,
           { headers }
         );

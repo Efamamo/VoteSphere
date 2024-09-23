@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import Member from './Member';
 import AddMember from './AddMember';
-import axios from 'axios';
 import { CircularProgress } from '@mui/material';
+import axiosInstance from '../../api/axiosInstance';
+import axios from 'axios';
 
 interface Member {
   username: string;
@@ -22,7 +23,7 @@ export default function Members() {
       setIsLoading(true);
       const groupId = localStorage.getItem('groupID');
       try {
-        const response = await axios.get(
+        const response = await axiosInstance.get(
           `https://votespherebackend.onrender.com/groups/${groupId}/members`
         );
         setMembers(response.data);
@@ -53,7 +54,7 @@ export default function Members() {
       const body = {
         username: name,
       };
-      await axios.post(
+      await axiosInstance.post(
         `https://votespherebackend.onrender.com/groups/${groupId}/members`,
         body,
         { headers }
@@ -83,7 +84,7 @@ export default function Members() {
         Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       };
 
-      await axios.delete(
+      await axiosInstance.delete(
         `https://votespherebackend.onrender.com/groups/${groupId}/members/${name}`,
         {
           headers,

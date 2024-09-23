@@ -1,8 +1,9 @@
 import { useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { CircularProgress } from '@mui/material';
-
+import axiosInstance from '../../api/axiosInstance';
 import axios from 'axios';
+
 export default function Signup() {
   const navigate = useNavigate();
   const usernameRef = useRef<HTMLInputElement>(null);
@@ -45,13 +46,9 @@ export default function Signup() {
     };
 
     try {
-      const response = await axios.post(
-        'https://votespherebackend.onrender.com/auth/signup',
-        body,
-        {
-          headers,
-        }
-      );
+      const response = await axiosInstance.post('auth/signup', body, {
+        headers,
+      });
       setLoading(false);
 
       localStorage.setItem('username', response.data.username);
