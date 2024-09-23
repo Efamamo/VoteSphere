@@ -1,9 +1,11 @@
+import { CircularProgress } from '@mui/material';
 import { useState } from 'react';
 
 interface AddProp {
   closeModal: () => void;
   userError: string;
   addMember: (name: string, email: string) => void;
+  loading: boolean;
 }
 export default function AddMember(prop: AddProp) {
   const [name, setName] = useState('');
@@ -28,7 +30,9 @@ export default function AddMember(prop: AddProp) {
         <div className="bg-white shadow-lg rounded-lg p-6 w-80 md:w-96">
           <h2 className="text-lg font-semibold mb-4">Enter Username</h2>
           <input
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => {
+              setName(e.target.value);
+            }}
             className="border w-full rounded-md border-inputBORDER px-2 py-2 mb-4 outline-none"
             type="text"
             placeholder="Username"
@@ -36,9 +40,19 @@ export default function AddMember(prop: AddProp) {
           <div className="flex justify-end gap-3">
             <button
               className="bg-blue-500 text-white px-4 py-2 rounded-md"
-              onClick={addMember}
+              onClick={async () => {
+                addMember();
+              }}
             >
-              Add
+              {prop.loading ? (
+                <CircularProgress
+                  size={18}
+                  thickness={4}
+                  sx={{ color: 'white', padding: 0, margin: 0 }}
+                />
+              ) : (
+                'Add'
+              )}
             </button>
             <button
               className="bg-red-500 text-white px-4 py-2 rounded-md"

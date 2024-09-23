@@ -6,12 +6,15 @@ import { useEffect, useState } from 'react';
 import noGroup from '../../assets/create cool ima 42ca4e70-75bf-409f-8590-ec2d9ba161d1.png';
 import noPolls from '../../assets/create cool ima 78a1b920-1ca2-4208-a513-676da49b171e.png';
 import axios from 'axios';
+import { CircularProgress } from '@mui/material';
 
 export default function Dashboard() {
   const { polls, updatePolls } = usePollContext();
   const [isOpen, setIsOpen] = useState(false);
   const [groupName, setGroupName] = useState('');
   const [hasGroup, setHasGroup] = useState(localStorage.getItem('groupID'));
+  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -34,12 +37,14 @@ export default function Dashboard() {
       }
     }
     fetchGroupName();
-  }, []);
+  }, [groupName]);
 
   useEffect(() => {
     async function fetchPolls() {
       const groupID = localStorage.getItem('groupID');
       if (groupID != 'null') {
+        setIsLoading(true);
+
         const headers = {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -51,8 +56,10 @@ export default function Dashboard() {
           );
 
           updatePolls(response.data);
+          setIsLoading(false);
         } catch (e) {
           console.log(e);
+          setIsLoading(false);
         }
       }
     }
@@ -60,6 +67,7 @@ export default function Dashboard() {
   }, [groupName]);
 
   async function handleAddGroup(gName: string, aName: string | null) {
+    setLoading(true);
     try {
       const headers = {
         'Content-Type': 'application/json',
@@ -80,9 +88,23 @@ export default function Dashboard() {
       localStorage.setItem('groupID', respone.data.groupID);
       setHasGroup(respone.data.groupID);
       setGroupName(respone.data.groupName);
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       console.log(error);
     }
+  }
+
+  if (isLoading) {
+    return (
+      <div className="h-screen absolute top-1/2 right-1/2">
+        <CircularProgress
+          size={80}
+          thickness={5}
+          sx={{ color: '#2684F2', padding: 0, margin: 0 }}
+        />
+      </div>
+    );
   }
 
   if (hasGroup === 'null') {
@@ -109,7 +131,11 @@ export default function Dashboard() {
         </div>
 
         {isOpen && (
-          <AddGroup closeModal={closeModal} addGroup={handleAddGroup} />
+          <AddGroup
+            closeModal={closeModal}
+            addGroup={handleAddGroup}
+            isLoading={loading}
+          />
         )}
       </>
     );

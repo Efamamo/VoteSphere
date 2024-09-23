@@ -4,6 +4,7 @@ import trash from '../../assets/trash.png';
 import { usePollContext } from '../../contexts/PollContext';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { CircularProgress } from '@mui/material';
 interface Choice {
   id: string;
   optionText: string;
@@ -19,6 +20,7 @@ interface EachPollProp {
 export default function EachPoll(prop: EachPollProp) {
   const [disabled, setDisabled] = useState(false);
   const [userVoted, setUserVoted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     async function checkVoted() {
       try {
@@ -69,8 +71,10 @@ export default function EachPoll(prop: EachPollProp) {
                   type="radio"
                   name={prop.question}
                   id=""
-                  onChange={() => {
-                    vote(prop.id, option.id, prop.idx, idx);
+                  onChange={async () => {
+                    setIsLoading(true);
+                    await vote(prop.id, option.id, prop.idx, idx);
+                    setIsLoading(false);
                     setDisabled(true);
                   }}
                 />
@@ -85,7 +89,17 @@ export default function EachPoll(prop: EachPollProp) {
                     %
                   </p>
                 )}
-                <label htmlFor="">{option.optionText}</label>
+                <label htmlFor="">
+                  {isLoading ? (
+                    <CircularProgress
+                      size={18}
+                      thickness={4}
+                      sx={{ color: 'blue', padding: 0, margin: 0 }}
+                    />
+                  ) : (
+                    option.optionText
+                  )}
+                </label>
               </div>
             </div>
             {total == 0 && <hr className="mt-1 ml-10 w-11/12 mb-2" />}

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Member from './Member';
 import AddMember from './AddMember';
 import axios from 'axios';
+import { CircularProgress } from '@mui/material';
 
 interface Member {
   username: string;
@@ -13,21 +14,26 @@ export default function Members() {
   const [members, setMembers] = useState<Member[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [userError, setUserError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function fetchMembers() {
+      setIsLoading(true);
       const groupId = localStorage.getItem('groupID');
       try {
         const response = await axios.get(
           `https://votespherebackend.onrender.com/groups/${groupId}/members`
         );
         setMembers(response.data);
+        setIsLoading(false);
       } catch (e) {
         console.error(e);
+        setIsLoading(false);
       }
     }
     fetchMembers();
-  });
+  }, []);
 
   async function addMember(name: string, email: string) {
     setUserError('');
@@ -37,6 +43,8 @@ export default function Members() {
     if (member) {
       return;
     }
+    setLoading(true);
+
     try {
       const headers = {
         'Content-Type': 'application/json',
@@ -51,8 +59,12 @@ export default function Members() {
         { headers }
       );
       members.push({ username: name, email, isAdmin: false });
+      setLoading(false);
+
       setIsOpen(false);
     } catch (e) {
+      setLoading(false);
+
       if (axios.isAxiosError(e)) {
         if (e.response) {
           setUserError(e.response.data.message);
@@ -92,6 +104,18 @@ export default function Members() {
   const openModal = () => {
     setIsOpen(true);
   };
+
+  if (isLoading) {
+    return (
+      <div className="h-screen absolute top-1/2 right-1/2">
+        <CircularProgress
+          size={80}
+          thickness={5}
+          sx={{ color: '#2684F2', padding: 0, margin: 0 }}
+        />
+      </div>
+    );
+  }
   return (
     <div className="mx-4 md:mx-16 my-16 md:my-32">
       <h2 className="text-3xl font-bold mb-14 text-center">Group 1 Members</h2>
@@ -120,6 +144,7 @@ export default function Members() {
       )}
       {isOpen && (
         <AddMember
+          loading={loading}
           closeModal={closeModal}
           addMember={addMember}
           userError={userError}

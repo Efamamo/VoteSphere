@@ -1,17 +1,19 @@
+import { CircularProgress } from '@mui/material';
 import { useState } from 'react';
 
 interface AddProp {
   closeModal: () => void;
   addGroup: (gName: string, adminName: string | null) => void;
+  isLoading: boolean;
 }
 export default function AddGroup(prop: AddProp) {
   const [name, setName] = useState('');
-  function addGroup() {
+  async function addGroup() {
     if (name.trim() === '') {
       alert('Enter Valid GName');
       return;
     }
-    prop.addGroup(name, localStorage.getItem('username'));
+    await prop.addGroup(name, localStorage.getItem('username'));
     prop.closeModal();
   }
 
@@ -38,7 +40,15 @@ export default function AddGroup(prop: AddProp) {
               className="bg-blue-500 text-white px-4 py-2 rounded-md"
               onClick={addGroup}
             >
-              Add
+              {prop.isLoading ? (
+                <CircularProgress
+                  size={18}
+                  thickness={4}
+                  sx={{ color: 'white', padding: 0, margin: 0 }}
+                />
+              ) : (
+                'Add'
+              )}
             </button>
             <button
               className="bg-red-500 text-white px-4 py-2 rounded-md"
