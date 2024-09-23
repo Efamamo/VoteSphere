@@ -17,6 +17,7 @@ export default function Members() {
   const [userError, setUserError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [groupName, setGroupName] = useState('');
 
   useEffect(() => {
     async function fetchMembers() {
@@ -35,6 +36,21 @@ export default function Members() {
     }
     fetchMembers();
   }, []);
+
+  useEffect(() => {
+    async function fetchGroupName() {
+      const groupID = localStorage.getItem('groupID');
+      if (groupID != 'null') {
+        try {
+          const response = await axiosInstance.get(`/groups/${groupID}`);
+          setGroupName(response.data.groupName);
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    }
+    fetchGroupName();
+  }, [groupName]);
 
   async function addMember(name: string, email: string) {
     setUserError('');
@@ -117,9 +133,12 @@ export default function Members() {
       </div>
     );
   }
+
   return (
     <div className="mx-4 md:mx-16 my-16 md:my-32">
-      <h2 className="text-3xl font-bold mb-14 text-center">Group 1 Members</h2>
+      <h2 className="text-3xl font-bold mb-14 text-center">
+        Group {groupName} Members
+      </h2>
       {members.length === 0 && (
         <h3 className="text-center text-xl font-bold">No Members</h3>
       )}
