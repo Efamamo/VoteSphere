@@ -166,7 +166,9 @@ export default function Header(prop: HeaderProp) {
               className="absolute top-4 right-4 w-8 cursor-pointer"
               src={close}
             />{' '}
-            <h2 className="text-center text-2xl font-semibold mt-4">PROFILE</h2>
+            <h2 className="text-center text-2xl font-semibold mt-10">
+              PROFILE
+            </h2>
             {localStorage.getItem('groupID') != 'null' && (
               <Link to="/members">
                 <div className="flex gap-4 justify-center mt-12 items-center">
