@@ -39,7 +39,7 @@ const refreshAccessToken = async (): Promise<string | null> => {
 const isAuthenticated = async (): Promise<boolean> => {
   const accessToken = localStorage.getItem('accessToken');
 
-  if (!accessToken) {
+  if (!accessToken || accessToken === 'undefined' || accessToken === 'null') {
     return false;
   }
 
