@@ -97,7 +97,7 @@ export default function Dashboard() {
 
   if (isLoading) {
     return (
-      <div className="h-screen absolute top-1/2 right-1/2">
+      <div className="mx-auto text-center mt-40">
         <CircularProgress
           size={80}
           thickness={5}
