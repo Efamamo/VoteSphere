@@ -4,7 +4,7 @@ import hero from '../../assets/hero1.png';
 export default function Hero() {
   return (
     <div className="lg:flex gap-28 justify-end items-center">
-      <img className="w-full" src={hero} />
+      <img src={hero} />
       <div className="lg:w-1/2 flex gap-6 flex-col items-start">
         <h1 className="text-4xl font-bold mt-4">Your voice, your choice</h1>
         <p>
