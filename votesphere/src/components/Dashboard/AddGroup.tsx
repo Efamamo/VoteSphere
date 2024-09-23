@@ -28,7 +28,7 @@ export default function AddGroup(prop: AddProp) {
       {/* Modal */}
       <div className="fixed inset-0 flex items-center justify-center z-40">
         <div className="bg-white shadow-lg rounded-lg p-6 w-80 md:w-96">
-          <h2 className="text-lg font-semibold mb-4">Enter Username</h2>
+          <h2 className="text-lg font-semibold mb-4">Enter Group Name</h2>
           <input
             onChange={(e) => setName(e.target.value)}
             className="border w-full rounded-md border-inputBORDER px-2 py-2 mb-4 outline-none"
@@ -47,7 +47,7 @@ export default function AddGroup(prop: AddProp) {
                   sx={{ color: 'white', padding: 0, margin: 0 }}
                 />
               ) : (
-                'Add'
+                'Create'
               )}
             </button>
             <button
